@@ -43,14 +43,18 @@ public class ForEachMap {
 	public static void main(String[] args) {
 		String fileName = "/Users/fmyblack/javaproject/fmyblack-util/src/main/resources/data/words.data";
 		Map<String, String> map = new HashMap<String, String>();
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 100; i++) {
 			readFileByLines(fileName, i, map);
 		}
 		System.out.println(map.size());
 		long start = System.currentTimeMillis();
 		foreach2(map);
 		long end = System.currentTimeMillis();
-		System.out.println(end - start);
+		System.out.println("using foreach coast " + (end - start) + " ms");
+		start = System.currentTimeMillis();
+		foreach1(map);
+		end = System.currentTimeMillis();
+		System.out.println("using iterator coast " + (end - start) + " ms");
 	}
 	
 	public static void foreach1(Map<String, String> map) {
