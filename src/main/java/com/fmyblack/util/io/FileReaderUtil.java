@@ -2,11 +2,40 @@ package com.fmyblack.util.io;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileReaderDemo {
+public class FileReaderUtil {
 
+	public static String readFile(String fileName) {
+		File file = new File(fileName);
+		return readFile(file);
+	}
+	
+	public static String readFile(File file) {
+		BufferedReader reader = null;
+		StringBuilder sb = new StringBuilder();
+		try {
+			reader = new BufferedReader(new FileReader(file));
+			String readString = null;
+			while(( readString = reader.readLine()) != null) {
+				sb.append(readString.trim());
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
+            }
+		}
+		return sb.toString();
+	}
+	
 	public static void readFileByLines(String fileName) {
         File file = new File(fileName);
         BufferedReader reader = null;
