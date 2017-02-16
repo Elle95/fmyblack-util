@@ -9,66 +9,34 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class TcpClient {
+public class TcpClient extends TcpPoint {
 
-	Socket socket;
-	OutputStream os;
-	PrintWriter pw;
-	InputStream is;
-	BufferedReader br;
-	
 	public TcpClient(String ip, int port) throws UnknownHostException, IOException {
-		socket = new Socket(ip, port);
-		os = socket.getOutputStream();
-		pw = new PrintWriter(os);
-		is = socket.getInputStream();
-		br = new BufferedReader(
-				new InputStreamReader(is));
+		super(new Socket(ip, port));
 	}
-	
-	public void sendToServer(String s) {
-		pw.write(s);
-		pw.flush();
-//		socket.shutdownInput();
-	}
-	
-	public String getResponse() {
-		StringBuilder sb = new StringBuilder();
-		String line = null;
+
+	public String getResponse(String req) {
+		String resp = null;
 		try {
-			while( (line = br.readLine()) != null ) {
-				sb.append(line);
-			}
+			this.send(req);
+			resp = this.readAll();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				this.closeAll();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return sb.toString();
+		return resp;
 	}
-	
-	public void closeWriter() throws IOException {
-		pw.close();
-		os.close();
-	}
-	
-	public void closeReader() throws IOException {
-		br.close();
-		is.close();
-	}
-	
-	public void closeSocket() throws IOException {
-		socket.close();
-	}
-	
-	public void closeAll() throws IOException {
-		closeReader();
-		closeWriter();
-		closeSocket();
-	}
-	
+
 	public static void main(String[] args) throws IOException {
 		TcpClient tc = new TcpClient("d", 3);
 		tc.socket.close();
 	}
-	
+
 }
