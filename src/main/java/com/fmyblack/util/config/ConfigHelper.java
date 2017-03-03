@@ -97,10 +97,4 @@ public class ConfigHelper {
 			return null;
 		}
 	}
-
-	public static void main(String[] args) {
-		//ConfigHelper.init();
-		ConfigHelper.init(args);
-		System.out.println(getConf("config", "test"));
-	}
 }

@@ -9,15 +9,6 @@ import com.fmyblack.util.io.TcpClient;
 public class Test {
 
 	public static void main(String[] args) {
-		try {
-			TcpClient tc = new TcpClient("s",3);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		System.out.println(Math.log(4));
 	}
 }

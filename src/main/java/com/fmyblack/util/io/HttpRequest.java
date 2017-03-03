@@ -9,6 +9,7 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class HttpRequest {
@@ -123,13 +124,16 @@ public class HttpRequest {
             }
         }
         return result;
-    }    
+    }
     
     public static void main(String[] args) {
     	String url = "http://106.38.117.54/api/itemSearch";
     	JSONObject req = new JSONObject();
     	req.put("method", "item_search");
     	req.put("domain", "npc");
+    	JSONArray column = new JSONArray();
+    	column.add("全国人大代表信息");
+    	req.put("column", column);
     	req.put("from", 0);
     	req.put("size", 10);
     	req.put("timestamp", 1482301415999l);
