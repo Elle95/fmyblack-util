@@ -13,6 +13,15 @@ public class NumberUtil {
 		return true;
 	}
 	
+	public static boolean isDouble(String s ) {
+		try {
+			Double.parseDouble(s);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
 	public static void main(String[] args) {
 		if(isInteger("12")) {
 			System.out.println("yues");
