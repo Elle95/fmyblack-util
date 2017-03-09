@@ -7,13 +7,12 @@ import net.sf.json.JSONObject;
 
 public class AnyTest {
 
-	public static void main(String[] args) {
-		JSONObject jo = new JSONObject();
-		jo.put("a", "asd");
-		Map<String, Long> map = new HashMap<String, Long>();
-		map.put("st", 23232l);
-		map.put("ed", 243l);
-		jo.put("ra", map);
-		System.out.println(jo.toString());
+	public static void main(String[] args) throws Exception {
+		Class<?> vmClass = Class.forName("sun.misc.VM");
+        long max = (Long) vmClass.getMethod("maxDirectMemory").invoke(null);
+        System.out.println(Runtime.getRuntime().availableProcessors());
+        System.out.println(Runtime.getRuntime().freeMemory());
+        System.out.println(Runtime.getRuntime().totalMemory());
+        System.out.println(Runtime.getRuntime().maxMemory());
 	}
 }
