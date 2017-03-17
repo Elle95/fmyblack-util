@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class FileReaderUtil {
 
@@ -62,6 +64,15 @@ public class FileReaderUtil {
             }
         }
     }
+	
+	public static List<String> listFiles(File dir) {
+		return Arrays.asList(dir.list());
+	}
+	
+	public static List<String> listFiles(String dirPath) {
+		return listFiles(new File(dirPath));
+	}
+	
 	
 	public static void main(String[] args) {
 		String fileName = "/Users/fmyblack/javaproject/fmyblack-util/src/main/resources/data/test.data";

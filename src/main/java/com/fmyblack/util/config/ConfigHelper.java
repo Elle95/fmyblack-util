@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
+import com.fmyblack.util.io.FileReaderUtil;
 
 public class ConfigHelper {
 
@@ -15,7 +18,16 @@ public class ConfigHelper {
 	 * 若conf文件夹在项目同级目录下，可以用它来初始化
 	 */
 	public static void init() {
-		init(ConfigHelper.class.getClass().getResource("/").getPath() + File.separator + "conf");
+		String userDirPath = System.getProperty("user.dir");
+		List<String> userDirList = FileReaderUtil.listFiles(userDirPath);
+		if(userDirList.contains("config")) {
+			init(userDirPath + File.separator + "config");
+		} else {
+			String localConf = userDirPath + File.separator + "src" 
+					+ File.separator + "main" + File.separator 
+					+ "resources" + File.separator + "conf";
+			init(localConf);
+		}
 	}
 	
 	/**
